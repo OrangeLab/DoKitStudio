@@ -5,7 +5,7 @@
   "version": "1.0.0",
   "main": "dist/main/index.cjs",
   "author": "caoenze@didichuxing.com",
-  "license": "MIT",
+  "license": "Apache License 2.0",
   "repository": "",
   "scripts": {
     "dev": "node scripts/watch.mjs",
