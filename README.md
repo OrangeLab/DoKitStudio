@@ -1,10 +1,10 @@
-# DoKitStudio
-A DoKit Desktop Application
+# DoKitStudio诞生背景
+旧版本一机多控使用的是手机与手机直接通信的方式进行一机多控，在使用过程中发现在链接多台设备时主机负载变高对性能有一定影响。同时因为网络连接断开等问题，在这种模式下，主机停止服务后全部从机也断开连接恢复过程需要逐一重新建立连接。为了解决在多台设备进行一机多控的稳定/体验问题。引入其他服务，开起了DoKit Studio的研发，DoKit Studio 是一款跨平台可运行的PC桌面程序。在一机多控中承担通信核心功能。
 
-# 简介
+# 项目简介
 DoKitStudio是一个基于electron-vite-vue架构的桌面端项目，目前主要服务于DoKit项目的一机多控功能
 
-为了保证开发期间的快速构建我们使用饿了electron-vite-vue架构
+为了保证开发期间的快速构建我们使用electron-vite-vue架构
 https://github.com/electron-vite/electron-vite-vue
 
 
