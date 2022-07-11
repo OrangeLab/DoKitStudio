@@ -1,0 +1,55 @@
+/**
+ * @see https://www.electron.build/configuration/configuration
+ */
+{
+  "productName": "DoKitStudio",
+  "appId": "YourAppID",
+  "asar": true,
+  "directories": {
+    "output": "release/${version}"
+  },
+  "files": [
+    "dist"
+  ],
+  "mac": {
+    "artifactName": "${productName}_${version}.${ext}",
+    "icon": "./public/dokit_pc_logo.ico",
+    "target": [
+      "dmg"
+    ]
+  },
+  "win": {
+    "icon": "./public/dokit_pc_logo.ico", // 图标，当前图标在根目录下，注意这里有两个坑
+    "target": [
+      {
+        "target": "nsis",
+        "arch": [
+          "x64"
+        ]
+      }
+    ],
+    "icon": "./public/dokit_pc_logo.ico",
+    "artifactName": "${productName}_${version}.${ext}"
+  },
+  "linux": {
+    "icon": "./public/dokit_pc_logo.png",
+    "target": [
+      {
+        "target": "AppImage",
+        "arch": ["x64"]
+      }
+    ],
+    "artifactName": "${productName}_${version}.${ext}",
+    "maintainer": "AdamCao"
+  },
+  "nsis": {
+    "oneClick": false,
+    "perMachine": false,
+    "allowToChangeInstallationDirectory": true,
+    "deleteAppDataOnUninstall": false,
+    "installerIcon": "./public/dokit_pc_logo.ico", // 安装图标
+    "uninstallerIcon": "./public/dokit_pc_logo.ico", // 卸载图标
+    "installerHeaderIcon": "./public/dokit_pc_logo.ico", // 安装时头部图标
+    "shortcutName": "DoKitStudio" // 图标名称(项目名称)
+  }
+}
