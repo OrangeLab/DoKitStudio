@@ -108,7 +108,7 @@ const startRecord = async () => {
     return
   }
   // @ts-ignore
-  await window.electronAutotest.startRecord(currentSelectClient.value)
+  await window.electronAutotest.startRecord(currentSelectClient.value, route.params.projectId)
 
 };
 
@@ -118,8 +118,15 @@ const finishRecord = async () => {
     return
   }
   // @ts-ignore
-  await window.electronAutotest.finishRecord(currentSelectClient.value)
+  await window.electronAutotest.finishRecord(currentSelectClient.value, route.params.projectId)
 };
+
+const startPlayback = async (clent, projectId, stepList) => {
+  // @ts-ignore
+  await window.electronAutotest.startPlayback(clent, projectId, stepList)
+}
+
+
 
 </script>
 <style lang="less">
