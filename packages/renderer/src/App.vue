@@ -1,5 +1,6 @@
 <template>
   <a-config-provider>
+    <TabBar/>
     <router-view />
   </a-config-provider>
 </template>
@@ -8,7 +9,7 @@
   import { computed } from 'vue';
   import enUS from '@arco-design/web-vue/es/locale/lang/en-us';
   import zhCN from '@arco-design/web-vue/es/locale/lang/zh-cn';
-  import GlobalSetting from '@/components/global-setting/index.vue';
+  import TabBar from '@/components/TabBar.vue';
   import useLocale from '@/hooks/locale';
 
   const { currentLocale } = useLocale();
@@ -23,3 +24,8 @@
     }
   });
 </script>
+<style lang="less">
+body{
+  background-color: var(--color-neutral-3);
+}
+</style>

@@ -1,6 +1,11 @@
-import db from './dataStore'
+import fs from 'fs-extra'
+import { app } from 'electron'
+import path from 'path'
 
-const getRanNum = (length: Number) => {
+import db from './../dataStore'
+import { DataBase } from './dataBase'
+
+const getRanNum = (length: number) => {
   let result = [];
   for (let i = 0; i < (length || 4); i++) {
     let ranNum = Math.ceil(Math.random() * 25);
@@ -9,40 +14,69 @@ const getRanNum = (length: Number) => {
   return result.join('');
 }
 
-// 新增应用
-export const addApplication = (data: any) => {
+const DBMap: Map<string, DataBase> = new Map();
+
+if (!db.has('autotest')) {
+	db.set('autotest', {
+		projectList: []
+	})
+}
+
+
+
+// 新建项目
+export const addProject = (data: any) => {
+  console.debug('1111111')
   let identification = getRanNum(8)
-  const existed = JSON.stringify(db.read().get('autoTest.appList').find({ appId: identification }))
+	console.debug('22222222')
+
+  const existed = JSON.stringify(db.read().get('autotest.projectList').find({ appId: identification }))
+	console.debug('333333')
+
   if (existed) {
-    addApplication(data)
+    addProject(data)
   } else {
-    return db.read().get('autoTest.appList').insert({
-      appName: data.appName,
-      appId: identification,
+    return db.read().get('autotest.projectList').insert({
+      projectName: data.projectName,
+      projectId: identification,
       desc: data.desc,
-      clientList: [],
     }).write()
   }
 }
 
-// 删除通道
-export const deleteApplication = (id: any) => {
-  db.removeById('autoTest.appList', id)
-  return db.read().get('autoTest.appList')
+// 删除项目
+export const deleteProject = (id: any) => {
+  db.removeById('autotest.projectList', id)
+  return db.read().get('autotest.projectList')
 }
-// 获取通道列表
-export const getApplicationList = () => {
-  return db.read().get('autoTest.appList')
+// 获取项目列表
+export const getProjectList = () => {
+  return db.read().get('autotest.projectList')
 }
-// 查询设备信息
-export const queryMachineName = (applicationId: string, id: any) => {
-  return db.read().get('autoTest.appList').find({ appId: applicationId }).get('clientList').find({ id })
+
+export const getProjectDetail = (projectId: string) => {
+	if (DBMap.has(projectId)) {
+		return DBMap.get(projectId).read()
+	}
+	const autotestPath = path.join(app.getPath('userData'), 'features/autotest')
+	const dbFileDir = path.join(autotestPath, 'project', projectId)
+	const fileName = 'project.json'
+	
+	const projectDB = new DataBase(dbFileDir, fileName)
+	DBMap.set(projectId, projectDB)
+	if (!projectDB.has('stepList')) {
+		projectDB.set('stepList', [])
+	}
+	return projectDB.read()
 }
-// 修改设备名称
-export const editMachineName = (applicationId: string, id: any, identificationName: string) => {
-  return db.read().get('autoTest.appList').find({ appId: applicationId }).get('clientList').find({ id }).set('deviceName', identificationName).write()
-}
-// 删除设备
-export const deleteMachine = (applicationId: string, id: any) => {
-  return db.read().get('autoTest.appList').find({ appId: applicationId }).get('clientList').remove({ id }).write()
+
+export const setProjectStepList = (projectId: string, stepList: any) => {
+	if (DBMap.has(projectId)) {
+		const projectDB = DBMap.get(projectId)
+		projectDB.set('stepList', stepList)
+	} else {
+
+	}
+
+	return {}
 }
