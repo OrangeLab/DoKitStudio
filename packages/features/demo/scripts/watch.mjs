@@ -17,53 +17,53 @@ function clearConsole() {
 /**
  * @type {(server: import('vite').ViteDevServer) => Promise<import('rollup').RollupWatcher>}
  */
-// function watchMain(server) {
-//   /**
-//    * @type {import('child_process').ChildProcessWithoutNullStreams | null}
-//    */
-//   let electronProcess = null
-//   const address = server.httpServer.address()
-//   const env = Object.assign(process.env, {
-//     VITE_DEV_SERVER_HOST: address.address,
-//     VITE_DEV_SERVER_PORT: address.port,
-//   })
+function watchMain(server) {
+  /**
+   * @type {import('child_process').ChildProcessWithoutNullStreams | null}
+   */
+  let electronProcess = null
+  const address = server.httpServer.address()
+  const env = Object.assign(process.env, {
+    VITE_DEV_SERVER_HOST: address.address,
+    VITE_DEV_SERVER_PORT: address.port,
+  })
 
-//   /**
-//    * @type {import('vite').Plugin}
-//    */
-//   const startElectron = {
-//     name: 'electron-main-watcher',
-//     writeBundle() {
-//       clearConsole()
+  /**
+   * @type {import('vite').Plugin}
+   */
+  const startElectron = {
+    name: 'electron-main-watcher',
+    writeBundle() {
+      clearConsole()
 
-//       if (electronProcess) {
-//         electronProcess.removeAllListeners()
-//         electronProcess.kill()
-//       }
+      if (electronProcess) {
+        electronProcess.removeAllListeners()
+        electronProcess.kill()
+      }
 
-//       electronProcess = spawn(electron, ['.'], { env })
-//       electronProcess.once('exit', process.exit)
-//       // https://github.com/electron-vite/electron-vite-vue/pull/129
-//       electronProcess.stdout.on('data', (data) => {
-//         const str = data.toString().trim()
-//         str && console.log(str)
-//       })
-//       electronProcess.stderr.on('data', (data) => {
-//         const str = data.toString().trim()
-//         str && console.error(str)
-//       })
-//     },
-//   }
+      electronProcess = spawn(electron, ['.'], { env })
+      electronProcess.once('exit', process.exit)
+      // https://github.com/electron-vite/electron-vite-vue/pull/129
+      electronProcess.stdout.on('data', (data) => {
+        const str = data.toString().trim()
+        str && console.log(str)
+      })
+      electronProcess.stderr.on('data', (data) => {
+        const str = data.toString().trim()
+        str && console.error(str)
+      })
+    },
+  }
 
-//   return build({
-//     configFile: 'packages/main/vite.config.ts',
-//     mode: 'development',
-//     plugins: [!debug && startElectron].filter(Boolean),
-//     build: {
-//       watch: {},
-//     },
-//   })
-// }
+  return build({
+    configFile: 'packages/main/vite.config.ts',
+    mode: 'development',
+    plugins: [!debug && startElectron].filter(Boolean),
+    build: {
+      watch: {},
+    },
+  })
+}
 
 /**
  * @type {(server: import('vite').ViteDevServer) => Promise<import('rollup').RollupWatcher>}
@@ -95,4 +95,4 @@ const server = await createServer({ configFile: 'packages/renderer/vite.config.t
 
 await server.listen()
 await watchPreload(server)
-// await watchMain(server)
+await watchMain(server)

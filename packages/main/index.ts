@@ -3,7 +3,6 @@ import { release } from 'os'
 import { join, normalize } from 'path'
 // import { startProxyServer } from './socketServer/start'
 // import db from './main/dataStore'
-import { autotestInit } from './autotest'
 import { dokitRequire } from './util'
 import { existsSync } from 'fs-extra'
 import spawn from "cross-spawn";

@@ -33,17 +33,20 @@ const featureList = reactive([
       name: 'autotest',
       icon: autotestIcon,
       title: '自动化测试',
-      desc: ''
+      desc: '',
+      port: 2333
     }, {
       name: 'multiControl',
       icon: multiControlIcon,
       title: '一机多控',
-      desc: ''
+      desc: '',
+      port: 2333
     }, {
       name: 'demo',
       icon: pluginIcon,
       title: 'demo',
-      desc: ''
+      desc: '',
+      port: 7788
     }]
   }
 ])
@@ -51,7 +54,7 @@ const featureList = reactive([
 const openPlugin = (item) => {
   console.log(item)
   // @ts-ignore
-  window.$electron.openPlugin({...item, port: 2333, host: '127.0.0.1'})
+  window.$electron.openPlugin({port: 2333, host: '127.0.0.1', ...item})
 }
 
 </script>
