@@ -1,7 +1,7 @@
 # DoKitStudio
 A DoKit Desktop Application
 
-## Quick Start
+## 框架启动
 
 ```sh
 yarn
