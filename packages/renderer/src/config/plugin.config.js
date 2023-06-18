@@ -23,6 +23,12 @@ export const plugins = [
       title: 'demo',
       desc: '',
       port: 7788
+    }, {
+      name: 'jsonFormatter',
+      icon: pluginIcon,
+      title: 'JSON格式化',
+      desc: '',
+      port: 7788
     }]
   }
 ]
