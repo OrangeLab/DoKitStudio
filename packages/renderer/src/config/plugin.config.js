@@ -23,6 +23,12 @@ export const plugins = [
       title: 'demo',
       desc: '',
       port: 7788
+    }, {
+      name: 'textEncoder',
+      icon: pluginIcon,
+      title: '文本编解码',
+      desc: '',
+      port: 8899
     }]
   }
 ]
