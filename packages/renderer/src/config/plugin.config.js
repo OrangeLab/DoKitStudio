@@ -29,6 +29,12 @@ export const plugins = [
       title: 'JSON格式化',
       desc: '',
       port: 7788
+    }, {
+      name: 'portal',
+      icon: pluginIcon,
+      title: 'portal',
+      desc: '',
+      port: 8080
     }]
   }
 ]
